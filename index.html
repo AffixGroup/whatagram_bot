@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Написать в WhatsApp и Telegram</title>
+  <meta name="description" content="Отправьте сообщение в WhatsApp или Telegram без добавления в контакты">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .wrap {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .main-field {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .inp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .inp span {
+      font-size: 18px;
+      margin-right: 5px;
+    }
+    .inp input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .buttons button {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .buttons button.whatsapp {
+      background-color: #25D366;
+    }
+    .buttons button.whatsapp:hover {
+      background-color: #128C7E;
+    }
+    .buttons button.telegram {
+      background-color: #0088cc;
+    }
+    .buttons button.telegram:hover {
+      background-color: #005f8b;
+    }
+    .option {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .option label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+    }
+    .option input {
+      margin-right: 5px;
+    }
+    .txt {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .donate-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center; /* Центрирование по горизонтали */
+    }
+    .donate-button {
+      background-color: #8B3FFD;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background-color 0.3s;
+    }
+    .donate-button:hover {
+      background-color: #702ff4;
+    }
+    .donate-button svg {
+      width: 24px;
+      height: 24px;
+      fill: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Написать в WhatsApp или Telegram</h1>
+    <div class="txt">
+      Просто введите номер телефона и выберите мессенджер. Сервис не сохраняет введенные данные. 
+    </div>
+    <div class="main-field">
+      <div class="inp">
+        <span>+</span>
+        <input id="phone" type="tel" placeholder="79998887766">
+      </div>
+      <div class="buttons">
+        <button class="whatsapp" id="whatsappBtn">WhatsApp</button>
+        <button class="telegram" id="telegramBtn">Telegram</button>
+      </div>
+      <div class="option">
+        <label>
+          <input type="checkbox" checked id="setRus">
+          <span>Российские номера</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Контейнер для кнопки пожертвования -->
+    <div class="donate-container">
+      <button class="donate-button" id="donateButton">
+        <svg viewBox="0 0 16 16">
+          <path d="M4.638 8.5a5.67 5.67 0 015.681-5.68A5.693 5.693 0 0116 8.5a5.693 5.693 0 01-5.68 5.682A5.67 5.67 0 014.637 8.5zm3.56 0c0 1.151.97 2.122 2.121 2.122 1.15 0 2.085-.97 2.121-2.121 0-1.15-.97-2.121-2.12-2.121-1.151 0-2.122.97-2.122 2.12zm-3.596 4.243v-8.27H0l2.589 8.27h2.013z" clip-rule="evenodd"></path>
+        </svg>
+        Поддержать проект
+      </button>
+    </div>
+
+    <!-- Скрытая форма для пожертвования -->
+    <form id="donateForm" action="https://yoomoney.ru/quickpay/confirm.xml" method="POST" style="display: none;">
+      <input type="hidden" name="receiver" value="4100119059239881">
+      <input type="hidden" name="formcomment" value="Поддержка проекта">
+      <input type="hidden" name="short-dest" value="Поддержка проекта">
+      <input type="hidden" name="targets" value="Поддержка проекта">
+      <input type="hidden" name="quickpay-form" value="donate">
+      <input type="hidden" name="sum" value="100" data-type="number">
+      <input type="hidden" name="label" value="donation">
+      <input type="hidden" name="successURL" value="https://ваш-сайт.ru/success">
+      <input type="hidden" name="failURL" value="https://ваш-сайт.ru/fail">
+      <input type="submit" value="Перейти к оплате">
+    </form>
+  </div>
+
+  <script>
+    window.onload = function() {
+      const phoneInput = document.getElementById('phone');
+      const whatsappBtn = document.getElementById('whatsappBtn');
+      const telegramBtn = document.getElementById('telegramBtn');
+      const setRus = document.getElementById('setRus');
+      const donateButton = document.getElementById('donateButton');
+      const donateForm = document.getElementById('donateForm');
+
+      // Функция для корректировки номера
+      function formatPhoneNumber(phone) {
+        let formattedPhone = phone.replace(/\D+/g, '');
+        if (setRus.checked && formattedPhone[0] === '8') {
+          formattedPhone = '7' + formattedPhone.slice(1);
+        }
+        return formattedPhone;
+      }
+
+      // Отправка в WhatsApp
+      whatsappBtn.onclick = function() {
+        const phone = formatPhoneNumber(phoneInput.value);
+        const linkWeb = `https://api.whatsapp.com/send?phone=${phone}`;
+        const linkApp = `whatsapp://send?phone=${phone}`;
+
+        // Пытаемся открыть приложение WhatsApp
+        window.location = linkApp;
+        // Если приложение не установлено, открываем веб-версию
+        setTimeout(() => {
+          window.location = linkWeb;
+        }, 1000);
+      };
+
+      // Отправка в Telegram
+      telegramBtn.onclick = function() {
+        const phone = formatPhoneNumber(phoneInput.value);
+        window.location = `https://t.me/+${phone}`;
+      };
+
+      // Автокоррекция номера при вводе
+      phoneInput.oninput = function() {
+        this.value = formatPhoneNumber(this.value);
+      };
+
+      // Обработка нажатия на кнопку пожертвования
+      donateButton.onclick = function() {
+        donateForm.submit();
+      };
+    };
+  </script>
+</body>
+</html>
