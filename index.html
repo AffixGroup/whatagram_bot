@@ -187,7 +187,8 @@
       // Отправка в WhatsApp
       whatsappBtn.onclick = function() {
         const phone = formatPhoneNumber(phoneInput.value);
-        const linkWeb = `https://api.whatsapp.com/send?phone=${phone}`;
+       // const linkWeb = `https://api.whatsapp.com/send?phone=${phone}`;
+        const linkWeb = `https://wa.me/send?phone=${phone}`;
         const linkApp = `whatsapp://send?phone=${phone}`;
 
         // Пытаемся открыть приложение WhatsApp
