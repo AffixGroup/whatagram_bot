@@ -188,15 +188,15 @@
       whatsappBtn.onclick = function() {
         const phone = formatPhoneNumber(phoneInput.value);
        // const linkWeb = `https://api.whatsapp.com/send?phone=${phone}`;
-        const linkWeb = `https://wa.me/send?phone=${phone}`;
-        const linkApp = `whatsapp://send?phone=${phone}`;
+        const linkWeb = `https://wa.me/send?phone=${phone}?text=Здравствуйте`;
+        const linkApp = `whatsapp://send?phone=${phone}?text=Здравствуйте`;
 
         // Пытаемся открыть приложение WhatsApp
         window.location = linkApp;
         // Если приложение не установлено, открываем веб-версию
         setTimeout(() => {
           window.location = linkWeb;
-        }, 1000);
+        }, 5000);
       };
 
       // Отправка в Telegram
