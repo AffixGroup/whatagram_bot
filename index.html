@@ -188,8 +188,8 @@
       whatsappBtn.onclick = function() {
         const phone = formatPhoneNumber(phoneInput.value);
        // const linkWeb = `https://api.whatsapp.com/send?phone=${phone}`;
-        const linkWeb = `https://wa.me/send?phone=${phone}?text=Здравствуйте`;
-        const linkApp = `whatsapp://send?phone=${phone}?text=Здравствуйте`;
+        const linkWeb = `https://wa.me/${phone}`;
+        const linkApp = `whatsapp://${phone}`;
 
         // Пытаемся открыть приложение WhatsApp
         window.location = linkApp;
